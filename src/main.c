@@ -1,20 +1,15 @@
 #include "wasm4.h"
 #include <stdint.h>
+#include "util.h"
 
-int pget(int x, int y) {
-    if (x < 0 || x > 159 || y < 0 || y > 159) { return 0; }
-    int idx   = (y * 160 + x) >> 2;
-    int shift = (x & 0b11) << 1;
-    int mask  = 0b11 << shift;
-    return ((FRAMEBUFFER[idx] & mask) >> shift) + 1;
-}
+const uint8_t chave[23] = { 0x00,0x00,0x00,0x1a,0x80,0x06,0x00,0x01,0xa0,0x00,0x60,0x00,0x18,0x00,0x6a,0xa0,0x60,0x0e,0x18,0x03,0x81,0xaa,0x80 };
 
 void draw_maze() {
-    *DRAW_COLORS = 0x03;
+    *DRAW_COLORS = 3;
     rect(145, 146, 15, 11);
     rect(146, 157, 14, 3);
 
-    *DRAW_COLORS = 0x04;
+    *DRAW_COLORS = 4;
     rect(15, 0, 2, 18);
     rect(137, 0, 2, 13);
     rect(147, 0, 2, 33);
@@ -139,18 +134,18 @@ void draw_maze() {
     rect(144, 159, 2, 1);
 }
 
-int x, y;
-int ganhou;
+int x, y, ganhou, temChave;
 
 void start() {
-    PALETTE[0] = 0xcccec7; // cor 1 - fundo off-white
-    PALETTE[1] = 0xa09f97; // cor 2 - midtone claro
-    PALETTE[2] = 0x77746f; // cor 3 - midtone escuro (jogador)
-    PALETTE[3] = 0x2e2622; // cor 4 - quase-preto (paredes)
+    PALETTE[0] = 0xcccec7;
+    PALETTE[1] = 0xa09f97;
+    PALETTE[2] = 0x77746f;
+    PALETTE[3] = 0x2e2622;
 
     x = 5;
     y = 5;
-    ganhou = 1;
+    ganhou = 0;
+    temChave = 0;
 }
 
 void update() {
@@ -164,29 +159,45 @@ void update() {
     x += dx;
     y += dy;
 
-    if (ganhou){
+    Shape player = {x, y, 2, 2};
+    Shape chave1 = {124, 122, 9, 10};
+
+    if (!ganhou){
         draw_maze();
+
+        if (!temChave){
+            *DRAW_COLORS = 0x4320;
+            blit(chave, 124, 122, 9, 10, BLIT_2BPP);
+        }
+
+        if (pget(x,   y  ) == 4 ||
+            pget(x+1, y  ) == 4 ||
+            pget(x,   y+1) == 4 ||
+            pget(x+1, y+1) == 4 ||
+            x > 159 || x < 0    ||
+            y > 159 || y < 0) {
+            x -= dx;
+            y -= dy;
+        }
+
+        if (pget(x, y) == 3 && temChave) {
+            ganhou = 1;
+        }
+
+        *DRAW_COLORS = 0x02;
+        rect(x, y, 2, 2);
     }
 
-    if (pget(x,   y  ) == 4 ||
-        pget(x+1, y  ) == 4 ||
-        pget(x,   y+1) == 4 ||
-        pget(x+1, y+1) == 4 ||
-        x > 159 || x < 0    ||
-        y > 159 || y < 0) {
-        x -= dx;
-        y -= dy;
-    }
 
-    if (pget(x, y) == 3) {
-        ganhou = 0;
-    }
 
-    if (!ganhou) {
+
+
+    if (hit_box_box(player, chave1)) {temChave = 1;}
+
+    if (ganhou) {
         *DRAW_COLORS = 4;
-        text("Ganhou pae", 50, 50);
+        text("YOU WON!", 46, 60);
     }
 
-    *DRAW_COLORS = 0x02;
-    rect(x, y, 2, 2);
+
 }
