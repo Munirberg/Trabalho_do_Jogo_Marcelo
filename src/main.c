@@ -290,7 +290,7 @@ void update() {
            }
    
            if (pget(x, y) == 3 && temChave) {
-               nivel = 2;
+               ganhou = 1;
            }
    
            *DRAW_COLORS = 0x02;
@@ -298,19 +298,44 @@ void update() {
        }
     }
 
-   else if(nivel == 2){
+        if (hit_box_box(player, chave1)) {temChave = 1;}
+
+        if (ganhou) {
+            *DRAW_COLORS = 4;
+            text("YOU WON!", 46, 60);
+            nivel = 2;
+        }
+
+    else if(nivel == 2){
       draw_maze2();
+      if (!temChave){
+               *DRAW_COLORS = 0x4320;
+               blit(chave, 124, 122, 9, 10, BLIT_2BPP);
+           }
+   
+           if (pget(x,   y  ) == 4 ||
+               pget(x+1, y  ) == 4 ||
+               pget(x,   y+1) == 4 ||
+               pget(x+1, y+1) == 4 ||
+               x > 159 || x < 0    ||
+               y > 159 || y < 0) {
+               x -= dx;
+               y -= dy;
+           }
+   
+           if (pget(x, y) == 3 && temChave) {
+               ganhou = 1;
+           }
+   
+           *DRAW_COLORS = 0x02;
+           rect(x, y, 2, 2);
+
+           if (hit_box_box(player, chave1)) {temChave = 1;}
+
+        if (ganhou) {
+            *DRAW_COLORS = 4;
+            text("YOU WON!", 46, 60);
+            nivel = 3;
+        }
    }
-
-
-
-
-    if (hit_box_box(player, chave1)) {temChave = 1;}
-
-    if (ganhou) {
-        *DRAW_COLORS = 4;
-        text("YOU WON!", 46, 60);
-    }
-
-
 }
