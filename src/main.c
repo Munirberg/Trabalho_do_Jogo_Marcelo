@@ -4,7 +4,7 @@
 
 const uint8_t chave[23] = { 0x00,0x00,0x00,0x1a,0x80,0x06,0x00,0x01,0xa0,0x00,0x60,0x00,0x18,0x00,0x6a,0xa0,0x60,0x0e,0x18,0x03,0x81,0xaa,0x80 };
 
-void draw_maze() {
+void draw_maze1() {
     *DRAW_COLORS = 3;
     rect(145, 146, 15, 11);
     rect(146, 157, 14, 3);
@@ -134,7 +134,7 @@ void draw_maze() {
     rect(144, 159, 2, 1);
 }
 
-int x, y, ganhou, temChave;
+int x, y, ganhou, temChave, nivel;
 
 void start() {
     PALETTE[0] = 0xcccec7;
@@ -146,6 +146,7 @@ void start() {
     y = 5;
     ganhou = 0;
     temChave = 0;
+    nivel = 1;
 }
 
 void update() {
@@ -161,33 +162,37 @@ void update() {
 
     Shape player = {x, y, 2, 2};
     Shape chave1 = {124, 122, 9, 10};
-
-    if (!ganhou){
-        draw_maze();
-
-        if (!temChave){
-            *DRAW_COLORS = 0x4320;
-            blit(chave, 124, 122, 9, 10, BLIT_2BPP);
-        }
-
-        if (pget(x,   y  ) == 4 ||
-            pget(x+1, y  ) == 4 ||
-            pget(x,   y+1) == 4 ||
-            pget(x+1, y+1) == 4 ||
-            x > 159 || x < 0    ||
-            y > 159 || y < 0) {
-            x -= dx;
-            y -= dy;
-        }
-
-        if (pget(x, y) == 3 && temChave) {
-            ganhou = 1;
-        }
-
-        *DRAW_COLORS = 0x02;
-        rect(x, y, 2, 2);
+    if(nivel == 1){
+       if (!ganhou){
+           draw_maze1();
+   
+           if (!temChave){
+               *DRAW_COLORS = 0x4320;
+               blit(chave, 124, 122, 9, 10, BLIT_2BPP);
+           }
+   
+           if (pget(x,   y  ) == 4 ||
+               pget(x+1, y  ) == 4 ||
+               pget(x,   y+1) == 4 ||
+               pget(x+1, y+1) == 4 ||
+               x > 159 || x < 0    ||
+               y > 159 || y < 0) {
+               x -= dx;
+               y -= dy;
+           }
+   
+           if (pget(x, y) == 3 && temChave) {
+               ganhou = 1;
+           }
+   
+           *DRAW_COLORS = 0x02;
+           rect(x, y, 2, 2);
+       }
     }
 
+   else if(nivel == 2){
+      return;
+   }
 
 
 
