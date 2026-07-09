@@ -555,7 +555,7 @@ void start() {
     x = 5;
     y = 5;
     temChave = 0;
-    nivel = 2;
+    nivel = 3;
     frame = 0;
     prologo = 0;
     portao = 145;
@@ -584,12 +584,12 @@ void update() {
         if (prologo == 0){
             *DRAW_COLORS = 4;
             text("LABYRINTH", 45, 50);
-            *DRAW_COLORS = 3;
+            *DRAW_COLORS = 2;
             text("Move using", 25, 70);
             text("  \x86 \n \x84\x87\x85", 105, 65);
 
             if ((frame / 30) % 2 == 0){
-                *DRAW_COLORS = 3;
+                *DRAW_COLORS = 2;
             }
             else{
                 *DRAW_COLORS = 4;
@@ -604,7 +604,7 @@ void update() {
             for (ulong i = 0; i < current_len; i++) {
                 buffer[i] = message[i];
             }
-            *DRAW_COLORS = 3;
+            *DRAW_COLORS = 4;
             text(buffer, 20, 30);
             if (current_len == sizeof(message) - 1) {nivel++; tempoGasto = frame;}
         }
@@ -624,7 +624,7 @@ void update() {
         }
         rect(143, portao, 2, 12);
 
-        *DRAW_COLORS = 3;
+        *DRAW_COLORS = 2;
         if ((frame / 25) % 2 == 0){
             text(">", 151 , 150);
         } else {
@@ -663,7 +663,7 @@ void update() {
         }
         rect(144, portao, 1, 10);
 
-        *DRAW_COLORS = 3;
+        *DRAW_COLORS = 2;
         if ((frame / 25) % 2 == 0){
             text(">", 151 , 150);
         } else {
@@ -694,17 +694,15 @@ void update() {
             nivel++;
             x = y = 5;
             temChave = 0;
-            tempo = (frame - tempoGasto) / 60;
         }
 
     }
 
     if (nivel == 3) {
-        Shape chave_item = {44, 53, 9, 10};
+        Shape chave_item = {40, 72, 9, 10};
         Shape detecta = {145, 146, 20, 20};
         Shape inimigo = {iniX, 145, 3, 3};
         Shape inimigo2 = {iniX, 145, 3, 3};
-        iniX = 160;
         draw_maze3();
 
         if(temChave){
@@ -716,7 +714,7 @@ void update() {
         }
         rect(144, portao, 1, 10);
 
-        *DRAW_COLORS = 3;
+        *DRAW_COLORS = 2;
         if ((frame / 25) % 2 == 0){
             text(">", 151 , 150);
         } else {
@@ -725,7 +723,7 @@ void update() {
 
         if (!temChave){
             *DRAW_COLORS = 0x4320;
-            blit(chave, 44, 53, 9, 10, BLIT_2BPP);
+            blit(chave, 40, 72, 9, 10, BLIT_2BPP);
         }
 
         if (iniX > 153 && esquerda){
@@ -745,7 +743,6 @@ void update() {
 
         if (hit_box_box(player, detecta) && temChave) {
             nivel++;
-            x = y = 5;
             temChave = 0;
             tempo = (frame - tempoGasto) / 60;
         }
@@ -767,7 +764,7 @@ void update() {
         rect(x, y, 2, 2);
     }
 
-    if (nivel > 2){
+    if (nivel > 3){
         *DRAW_COLORS = 2;
         char buf[10];
         itoa(buf, tempo);
