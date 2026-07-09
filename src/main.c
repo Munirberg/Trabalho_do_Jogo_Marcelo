@@ -339,7 +339,7 @@ void draw_maze1() {
     rect(144, 159, 2, 1);
 }
 
-int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo;
+int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo, portao, iniX, esquerda;
 char message[] = "Escape the\nlabyrinth...\0\0\0\0\0";
 char buffer[120];
 ulong current_len = 0;
@@ -353,9 +353,12 @@ void start() {
     x = 5;
     y = 5;
     temChave = 0;
-    nivel = 0;
+    nivel = 2;
     frame = 0;
     prologo = 0;
+    portao = 145;
+    iniX = 142;
+    esquerda = 1;
 }
 
 void update() {
@@ -409,6 +412,22 @@ void update() {
         Shape detecta = {145, 146, 20, 20};
         draw_maze1();
 
+        if(temChave){
+            if (portao < 157){
+                if ((frame / 40) % 4 == 0){
+                    portao++;
+                }
+            }
+        }
+        rect(143, portao, 2, 12);
+
+        *DRAW_COLORS = 3;
+        if ((frame / 25) % 2 == 0){
+            text(">", 151 , 150);
+        } else {
+            text(">", 153, 150);
+        }
+
         if (!temChave){
             *DRAW_COLORS = 0x4320;
             blit(chave, 124, 122, 9, 10, BLIT_2BPP);
@@ -420,6 +439,7 @@ void update() {
             nivel++;
             x = y = 5;
             temChave = 0;
+            portao = 147;
         }
 
     }
@@ -427,13 +447,43 @@ void update() {
     if (nivel == 2) {
         Shape chave_item = {44, 53, 9, 10};
         Shape detecta = {145, 146, 20, 20};
+        Shape inimigo = {iniX, 145, 3, 3};
 
         draw_maze2();
+
+        if(temChave){
+            if (portao < 157){
+                if ((frame / 40) % 4 == 0){
+                    portao++;
+                }
+            }
+        }
+        rect(144, portao, 1, 10);
+
+        *DRAW_COLORS = 3;
+        if ((frame / 25) % 2 == 0){
+            text(">", 151 , 150);
+        } else {
+            text(">", 153, 150);
+        }
 
         if (!temChave){
             *DRAW_COLORS = 0x4320;
             blit(chave, 44, 53, 9, 10, BLIT_2BPP);
         }
+
+        if (iniX > 57 && esquerda){
+                iniX--;
+            if (iniX == 57){esquerda = 0;}
+        } else {
+                iniX++;
+            if (iniX == 140){esquerda = 1;}
+        }
+
+        *DRAW_COLORS = 3;
+        rect(iniX, 145, 3, 3);
+
+        if (hit_box_box(player, inimigo)) {temChave = 0; x = y = 5;portao=147;}
 
         if (hit_box_box(player, chave_item)) {temChave = 1;}
 
