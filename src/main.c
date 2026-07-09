@@ -694,6 +694,7 @@ void update() {
             nivel++;
             x = y = 5;
             temChave = 0;
+            portao = 10;
         }
 
     }
@@ -701,18 +702,18 @@ void update() {
     if (nivel == 3) {
         Shape chave_item = {40, 72, 9, 10};
         Shape detecta = {145, 146, 20, 20};
-        Shape inimigo = {iniX, 115, 3, 3};
-        Shape inimigo2 = {155, iniY, 3, 3};
+        Shape inimigo = {iniX, 115, 2, 2};
+        Shape inimigo2 = {167, iniY, 2, 2};
         draw_maze3();
 
         if(temChave){
-            if (portao < 157){
+            if (portao < 147){
                 if ((frame / 40) % 4 == 0){
                     portao++;
                 }
             }
         }
-        rect(portao, 157, 1, 10);
+        rect(147, 148, portao, 10);
 
         *DRAW_COLORS = 2;
         if ((frame / 25) % 2 == 0){
@@ -744,8 +745,8 @@ void update() {
 
 
         *DRAW_COLORS = 3;
-        rect(iniX, 115, 3, 3);
-        rect(155, iniY, 3, 3);
+        rect(iniX, 115, 2, 2);
+        rect(167, iniY, 2, 2);
 
         if (hit_box_box(player, inimigo) || (hit_box_box(player, inimigo2))) {temChave = 0; x = y = 5;portao=147;}
 
