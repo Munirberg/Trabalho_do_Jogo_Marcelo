@@ -541,7 +541,7 @@ void draw_maze1() {
     rect(144, 159, 2, 1);
 }
 
-int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo, portao, iniX, iniY, esquerda;
+int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo, portao, iniX, iniY, esquerda, cima;
 char message[] = "Escape the\nlabyrinth...\0\0\0\0\0";
 char buffer[120];
 ulong current_len = 0;
@@ -562,6 +562,7 @@ void start() {
     iniX = 158;
     esquerda = 1;
     iniY = 115;
+    cima = 1;
 }
 
 void update() {
@@ -678,7 +679,8 @@ void update() {
         if (iniX > 57 && esquerda){
                 iniX--;
             if (iniX == 57){esquerda = 0;}
-        } else {
+        } 
+        else {
                 iniX++;
             if (iniX == 140){esquerda = 1;}
         }
@@ -736,12 +738,13 @@ void update() {
             if (iniX == 160){esquerda = 1;}
         }
 
-        if (iniY > 39 && esquerda){
-                iniX--;
-            if (iniY == 39){esquerda = 0;}
-        } else {
+        if (iniY > 39 && cima){
+                iniY--;
+            if (iniY == 39){cima = 0;}
+        } 
+        else {
                 iniY++;
-            if (iniY == 144){esquerda = 1;}
+            if (iniY == 144){cima = 1;}
         }
 
 
