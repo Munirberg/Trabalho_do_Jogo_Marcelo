@@ -6,6 +6,208 @@
 const uint8_t chave[23] = { 0x00,0x00,0x00,0x1a,0x80,0x06,0x00,0x01,0xa0,0x00,0x60,0x00,0x18,0x00,0x6a,0xa0,0x60,0x0e,0x18,0x03,0x81,0xaa,0x80 };
 #define TYPE_SPEED 10
 
+
+void draw_maze3() {
+    *DRAW_COLORS = 0x04;
+    rect(14, 0, 1, 7);
+    rect(41, 0, 1, 7);
+    rect(54, 0, 1, 7);
+    rect(149, 0, 1, 11);
+    rect(62, 2, 1, 16);
+    rect(28, 3, 5, 1);
+    rect(28, 4, 1, 5);
+    rect(32, 4, 1, 14);
+    rect(63, 5, 39, 1);
+    rect(109, 5, 29, 1);
+    rect(42, 6, 12, 1);
+    rect(101, 6, 1, 14);
+    rect(109, 6, 1, 10);
+    rect(63, 10, 31, 1);
+    rect(117, 10, 32, 1);
+    rect(150, 10, 10, 1);
+    rect(0, 11, 10, 1);
+    rect(33, 11, 13, 1);
+    rect(72, 11, 1, 7);
+    rect(84, 11, 1, 3);
+    rect(93, 11, 1, 15);
+    rect(16, 12, 4, 1);
+    rect(45, 12, 1, 11);
+    rect(16, 13, 1, 5);
+    rect(19, 13, 1, 5);
+    rect(75, 14, 4, 1);
+    rect(78, 15, 1, 3);
+    rect(110, 15, 43, 1);
+    rect(152, 16, 1, 16);
+    rect(6, 17, 10, 1);
+    rect(17, 17, 2, 1);
+    rect(20, 17, 12, 1);
+    rect(46, 17, 16, 1);
+    rect(73, 17, 5, 1);
+    rect(6, 18, 1, 11);
+    rect(26, 18, 1, 21);
+    rect(84, 19, 1, 42);
+    rect(38, 20, 1, 20);
+    rect(27, 22, 7, 1);
+    rect(46, 22, 30, 1);
+    rect(13, 23, 7, 1);
+    rect(13, 24, 1, 14);
+    rect(19, 24, 1, 31);
+    rect(85, 25, 8, 1);
+    rect(94, 25, 42, 1);
+    rect(33, 29, 5, 1);
+    rect(46, 29, 15, 1);
+    rect(67, 29, 6, 1);
+    rect(46, 30, 1, 5);
+    rect(60, 30, 1, 14);
+    rect(67, 30, 1, 8);
+    rect(72, 30, 1, 14);
+    rect(90, 31, 62, 1);
+    rect(73, 32, 7, 1);
+    rect(90, 32, 1, 22);
+    rect(107, 32, 1, 15);
+    rect(112, 32, 1, 13);
+    rect(137, 32, 1, 7);
+    rect(27, 34, 7, 1);
+    rect(47, 34, 10, 1);
+    rect(56, 35, 1, 5);
+    rect(0, 37, 13, 1);
+    rect(39, 38, 10, 1);
+    rect(117, 38, 20, 1);
+    rect(138, 38, 22, 1);
+    rect(146, 39, 1, 56);
+    rect(78, 40, 1, 12);
+    rect(97, 41, 1, 20);
+    rect(24, 43, 36, 1);
+    rect(61, 43, 11, 1);
+    rect(33, 44, 1, 3);
+    rect(117, 44, 21, 1);
+    rect(6, 45, 6, 1);
+    rect(137, 45, 1, 8);
+    rect(6, 46, 1, 13);
+    rect(11, 46, 1, 15);
+    rect(153, 47, 1, 95);
+    rect(20, 51, 58, 1);
+    rect(61, 52, 1, 53);
+    rect(72, 52, 1, 58);
+    rect(107, 52, 30, 1);
+    rect(124, 53, 1, 64);
+    rect(27, 56, 30, 1);
+    rect(27, 57, 1, 3);
+    rect(56, 57, 1, 3);
+    rect(130, 57, 8, 1);
+    rect(130, 58, 1, 66);
+    rect(137, 58, 1, 27);
+    rect(28, 59, 28, 1);
+    rect(12, 60, 7, 1);
+    rect(85, 60, 12, 1);
+    rect(98, 60, 20, 1);
+    rect(18, 61, 1, 11);
+    rect(117, 61, 1, 19);
+    rect(7, 64, 8, 1);
+    rect(7, 65, 1, 35);
+    rect(14, 65, 1, 7);
+    rect(25, 65, 36, 1);
+    rect(141, 65, 5, 1);
+    rect(25, 66, 1, 12);
+    rect(36, 66, 1, 20);
+    rect(73, 66, 32, 2);
+    rect(111, 66, 1, 8);
+    rect(141, 66, 1, 19);
+    rect(15, 71, 3, 1);
+    rect(30, 72, 1, 6);
+    rect(53, 73, 1, 13);
+    rect(84, 73, 27, 1);
+    rect(84, 74, 1, 42);
+    rect(12, 77, 13, 1);
+    rect(26, 77, 4, 1);
+    rect(91, 79, 26, 1);
+    rect(91, 80, 1, 36);
+    rect(66, 81, 1, 25);
+    rect(73, 81, 6, 1);
+    rect(78, 82, 1, 71);
+    rect(138, 84, 3, 1);
+    rect(12, 85, 24, 1);
+    rect(37, 85, 16, 1);
+    rect(114, 87, 6, 1);
+    rect(114, 88, 1, 29);
+    rect(119, 88, 1, 22);
+    rect(99, 89, 8, 1);
+    rect(99, 90, 1, 58);
+    rect(106, 90, 1, 35);
+    rect(12, 91, 43, 1);
+    rect(137, 91, 1, 33);
+    rect(54, 92, 1, 5);
+    rect(142, 94, 4, 1);
+    rect(15, 96, 39, 1);
+    rect(15, 97, 1, 42);
+    rect(0, 99, 7, 1);
+    rect(145, 99, 8, 2);
+    rect(20, 103, 8, 1);
+    rect(20, 104, 1, 6);
+    rect(27, 104, 1, 6);
+    rect(32, 104, 29, 1);
+    rect(138, 106, 9, 1);
+    rect(146, 107, 1, 3);
+    rect(0, 108, 11, 1);
+    rect(10, 109, 1, 17);
+    rect(21, 109, 6, 1);
+    rect(138, 109, 8, 1);
+    rect(32, 110, 30, 1);
+    rect(61, 111, 1, 32);
+    rect(66, 112, 1, 12);
+    rect(138, 113, 8, 1);
+    rect(145, 114, 1, 10);
+    rect(16, 115, 31, 1);
+    rect(37, 116, 1, 36);
+    rect(115, 116, 9, 1);
+    rect(119, 117, 1, 8);
+    rect(67, 122, 1, 2);
+    rect(84, 122, 8, 1);
+    rect(22, 123, 11, 1);
+    rect(62, 123, 4, 1);
+    rect(68, 123, 4, 1);
+    rect(84, 123, 1, 7);
+    rect(91, 123, 1, 34);
+    rect(131, 123, 6, 1);
+    rect(146, 123, 3, 1);
+    rect(32, 124, 1, 15);
+    rect(46, 124, 1, 28);
+    rect(54, 124, 1, 33);
+    rect(71, 124, 1, 18);
+    rect(107, 124, 12, 1);
+    rect(0, 125, 10, 1);
+    rect(100, 128, 53, 1);
+    rect(100, 129, 1, 19);
+    rect(16, 130, 12, 1);
+    rect(51, 132, 3, 1);
+    rect(10, 133, 1, 15);
+    rect(106, 134, 42, 1);
+    rect(4, 135, 1, 18);
+    rect(116, 135, 1, 8);
+    rect(128, 135, 1, 19);
+    rect(16, 138, 16, 1);
+    rect(17, 139, 1, 14);
+    rect(134, 141, 19, 1);
+    rect(134, 142, 1, 15);
+    rect(95, 144, 4, 1);
+    rect(26, 146, 1, 14);
+    rect(140, 146, 9, 1);
+    rect(60, 147, 18, 1);
+    rect(101, 147, 21, 1);
+    rect(140, 147, 1, 13);
+    rect(66, 148, 1, 5);
+    rect(101, 148, 1, 9);
+    rect(135, 149, 5, 1);
+    rect(51, 150, 3, 1);
+    rect(38, 151, 8, 1);
+    rect(5, 152, 12, 1);
+    rect(67, 152, 11, 1);
+    rect(92, 152, 3, 1);
+    rect(37, 156, 17, 1);
+    rect(55, 156, 36, 1);
+    rect(102, 156, 32, 1);
+}
+
 void draw_maze2() {
     *DRAW_COLORS = 4;
     rect(15, 0, 1, 8);
@@ -339,15 +541,15 @@ void draw_maze1() {
     rect(144, 159, 2, 1);
 }
 
-int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo, portao, iniX, esquerda;
+int x, y, ganhou, temChave, nivel, frame, prologo, tempoGasto, tempo, portao, iniX, iniY, esquerda;
 char message[] = "Escape the\nlabyrinth...\0\0\0\0\0";
 char buffer[120];
 ulong current_len = 0;
 
 void start() {
     PALETTE[0] = 0xcccec7;
-    PALETTE[1] = 0xa09f97;
-    PALETTE[2] = 0x77746f;
+    PALETTE[1] = 0x77746f;
+    PALETTE[2] = 0xe53d00;
     PALETTE[3] = 0x2e2622;
 
     x = 5;
@@ -359,6 +561,7 @@ void start() {
     portao = 145;
     iniX = 142;
     esquerda = 1;
+    iniY = 115;
 }
 
 void update() {
@@ -496,7 +699,60 @@ void update() {
 
     }
 
-    if (nivel >  0 && nivel < 3){
+    if (nivel == 3) {
+        Shape chave_item = {44, 53, 9, 10};
+        Shape detecta = {145, 146, 20, 20};
+        Shape inimigo = {iniX, 145, 3, 3};
+        Shape inimigo2 = {iniX, 145, 3, 3};
+        iniX = 160;
+        draw_maze3();
+
+        if(temChave){
+            if (portao < 157){
+                if ((frame / 40) % 4 == 0){
+                    portao++;
+                }
+            }
+        }
+        rect(144, portao, 1, 10);
+
+        *DRAW_COLORS = 3;
+        if ((frame / 25) % 2 == 0){
+            text(">", 151 , 150);
+        } else {
+            text(">", 153, 150);
+        }
+
+        if (!temChave){
+            *DRAW_COLORS = 0x4320;
+            blit(chave, 44, 53, 9, 10, BLIT_2BPP);
+        }
+
+        if (iniX > 153 && esquerda){
+                iniX--;
+            if (iniX == 153){esquerda = 0;}
+        } else {
+                iniX++;
+            if (iniX == 160){esquerda = 1;}
+        }
+
+        *DRAW_COLORS = 3;
+        rect(iniX, 115, 3, 3);
+
+        if (hit_box_box(player, inimigo) || (hit_box_box(player, inimigo2))) {temChave = 0; x = y = 5;portao=147;}
+
+        if (hit_box_box(player, chave_item)) {temChave = 1;}
+
+        if (hit_box_box(player, detecta) && temChave) {
+            nivel++;
+            x = y = 5;
+            temChave = 0;
+            tempo = (frame - tempoGasto) / 60;
+        }
+
+    }
+
+    if (nivel >  0 && nivel < 4){
         if (pget(x,   y  ) == 4 ||
             pget(x+1, y  ) == 4 ||
             pget(x,   y+1) == 4 ||
