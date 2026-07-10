@@ -561,7 +561,7 @@ void start() {
     frame = 0;
     prologo = 0;
     portao = 145;
-    iniX = 158;
+    iniX = 142;
     esquerda = 1;
     iniY = 115;
     cima = 1;
@@ -685,7 +685,7 @@ void update() {
         if (iniX > 57 && esquerda){
                 iniX--;
             if (iniX == 57){esquerda = 0;}
-        } 
+        }
         else {
                 iniX++;
             if (iniX == 140){esquerda = 1;}
@@ -702,7 +702,7 @@ void update() {
             nivel++;
             x = y = 5;
             temChave = 0;
-            portao = 15;
+            portao = 13;
             iniX = 158;
         }
 
@@ -737,18 +737,18 @@ void update() {
             blit(chave, 40, 72, 9, 10, BLIT_2BPP);
         }
 
-        if (iniX > 153 && esquerda){
-                iniX--;
-            if (iniX == 153){esquerda = 0;}
+        if (iniX > 154 && esquerda){
+            if (frame % 4 == 0){iniX--;}
+            if (iniX == 154){esquerda = 0;}
         } else {
-                iniX++;
+            if (frame  % 4 == 0){iniX++;}
             if (iniX == 160){esquerda = 1;}
         }
 
         if (iniY > 39 && cima){
                 iniY--;
             if (iniY == 39){cima = 0;}
-        } 
+        }
         else {
                 iniY++;
             if (iniY == 144){cima = 1;}
