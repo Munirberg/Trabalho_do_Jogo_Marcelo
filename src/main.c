@@ -3,10 +3,11 @@
 #include <sys/types.h>
 #include "util.h"
 
+// desenho da chave que vai ser usado nas fases
 const uint8_t chave[23] = { 0x00,0x00,0x00,0x1a,0x80,0x06,0x00,0x01,0xa0,0x00,0x60,0x00,0x18,0x00,0x6a,0xa0,0x60,0x0e,0x18,0x03,0x81,0xaa,0x80 };
 #define TYPE_SPEED 10
 
-
+// fase 3 
 void draw_maze3() {
     *DRAW_COLORS = 0x04;
     rect(14, 0, 1, 7);
@@ -207,7 +208,7 @@ void draw_maze3() {
     rect(55, 156, 36, 1);
     rect(102, 156, 32, 1);
 }
-
+// fase 2
 void draw_maze2() {
     *DRAW_COLORS = 4;
     rect(15, 0, 1, 8);
@@ -414,7 +415,7 @@ void draw_maze2() {
     rect(48, 156, 10, 1);
     rect(48, 157, 1, 3);
 }
-
+// fase 1
 void draw_maze1() {
     *DRAW_COLORS = 4;
     rect(15, 0, 2, 18);
@@ -546,6 +547,7 @@ char message[] = "Escape the\nlabyrinth...\0\0\0\0\0";
 char buffer[120];
 ulong current_len = 0;
 
+// inicializa o jogo inteiro, iniciando o nivel em 1, nao tem chave e variaveis dos inimigos
 void start() {
     PALETTE[0] = 0xcccec7;
     PALETTE[1] = 0x77746f;
@@ -555,7 +557,7 @@ void start() {
     x = 5;
     y = 5;
     temChave = 0;
-    nivel = 3;
+    nivel = 0;
     frame = 0;
     prologo = 0;
     portao = 145;
@@ -579,7 +581,7 @@ void update() {
     x += dx;
     y += dy;
     Shape player = {x, y, 2, 2};
-
+    // informações do nivel 0, aqui começamos a tela inicial e explicamos a movimentação
     if (nivel == 0) {
         if (gamepad & BUTTON_1) {prologo++;}
         if (prologo == 0){
@@ -611,11 +613,13 @@ void update() {
         }
     }
 
+    // aqui iniciamos o nivel 1, definimos a posicao da chave e suas hitsbox
     if(nivel == 1){
         Shape chave_item = {124, 122, 9, 10};
         Shape detecta = {145, 146, 20, 20};
         draw_maze1();
 
+        // abre o portao se o player tem a chave, faz a animaçãozinha dele abrindo ihuu
         if(temChave){
             if (portao < 157){
                 if ((frame / 40) % 4 == 0){
@@ -625,18 +629,19 @@ void update() {
         }
         rect(143, portao, 2, 12);
 
+        // seta que indica onde o player tem que chegar, ela fica indo pro lado e pro outro
         *DRAW_COLORS = 2;
         if ((frame / 25) % 2 == 0){
             text(">", 151 , 150);
         } else {
             text(">", 153, 150);
         }
-
+        // desenha a chave no lugar 
         if (!temChave){
             *DRAW_COLORS = 0x4320;
             blit(chave, 124, 122, 9, 10, BLIT_2BPP);
         }
-
+        // hitboxs pra ver se o player pega a chave, e/ou passa de fase, incrementa o nivel e desenaha prox fase
         if (hit_box_box(player, chave_item)) {temChave = 1;}
 
         if (hit_box_box(player, detecta) && temChave) {
@@ -649,6 +654,7 @@ void update() {
     }
 
     if (nivel == 2) {
+        // aqui começa a ter inimigos, entao fazemos ele e sua hitbox, ele se movimenta frequentemente, por isso fizemos uma variavel iniX (explicação doq ela faz mais pra baixo)
         Shape chave_item = {44, 53, 9, 10};
         Shape detecta = {145, 146, 20, 20};
         Shape inimigo = {iniX, 145, 3, 3};
@@ -675,7 +681,7 @@ void update() {
             *DRAW_COLORS = 0x4320;
             blit(chave, 44, 53, 9, 10, BLIT_2BPP);
         }
-
+        // movimentação do inimigo, iniX fica decrementando e incrementando, assim mudando sua posição enquanto os frames passam
         if (iniX > 57 && esquerda){
                 iniX--;
             if (iniX == 57){esquerda = 0;}
@@ -687,7 +693,7 @@ void update() {
 
         *DRAW_COLORS = 3;
         rect(iniX, 145, 3, 3);
-
+        // se o player encosta no inimigo, recomeça tudo, perde a chave, portao fecha e volta pro inicio
         if (hit_box_box(player, inimigo)) {temChave = 0; x = y = 5;portao=147;}
 
         if (hit_box_box(player, chave_item)) {temChave = 1;}
@@ -703,6 +709,7 @@ void update() {
     }
 
     if (nivel == 3) {
+        // dois inimigos agora, só que um deles anda no eixo Y, então fizemos o iniY
         Shape chave_item = {40, 72, 9, 10};
         Shape detecta = {145, 146, 20, 20};
         Shape inimigo = {iniX, 115, 2, 2};
@@ -778,7 +785,7 @@ void update() {
         *DRAW_COLORS = 2;
         rect(x, y, 2, 2);
     }
-
+    // assim, quando o player acaba o jogo, contamos quanto tempo ele levou para passar das 3 fases, thats it!
     if (nivel > 3){
         *DRAW_COLORS = 2;
         char buf[10];
