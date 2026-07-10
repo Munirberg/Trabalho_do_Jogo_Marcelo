@@ -7,7 +7,7 @@
 const uint8_t chave[23] = { 0x00,0x00,0x00,0x1a,0x80,0x06,0x00,0x01,0xa0,0x00,0x60,0x00,0x18,0x00,0x6a,0xa0,0x60,0x0e,0x18,0x03,0x81,0xaa,0x80 };
 #define TYPE_SPEED 10
 
-// fase 3 
+// fase 3
 void draw_maze3() {
     *DRAW_COLORS = 0x04;
     rect(14, 0, 1, 7);
@@ -547,6 +547,15 @@ char message[] = "Escape the\nlabyrinth...\0\0\0\0\0";
 char buffer[120];
 ulong current_len = 0;
 
+void draw_chave() {
+    *DRAW_COLORS = 2;
+    if ((frame / 25) % 2 == 0){
+        text(">", 151 , 150);
+    } else {
+        text(">", 153, 150);
+    }
+}
+
 // inicializa o jogo inteiro, iniciando o nivel em 1, nao tem chave e variaveis dos inimigos
 void start() {
     PALETTE[0] = 0xcccec7;
@@ -586,7 +595,7 @@ void update() {
         if (gamepad & BUTTON_1) {prologo++;}
         if (prologo == 0){
             *DRAW_COLORS = 4;
-            text("LABYRINTH", 45, 50);
+            text("LABYDINTH", 45, 50);
             *DRAW_COLORS = 2;
             text("Move using", 25, 70);
             text("  \x86 \n \x84\x87\x85", 105, 65);
@@ -630,13 +639,9 @@ void update() {
         rect(143, portao, 2, 12);
 
         // seta que indica onde o player tem que chegar, ela fica indo pro lado e pro outro
-        *DRAW_COLORS = 2;
-        if ((frame / 25) % 2 == 0){
-            text(">", 151 , 150);
-        } else {
-            text(">", 153, 150);
-        }
-        // desenha a chave no lugar 
+        draw_chave();
+
+        // desenha a chave no lugar
         if (!temChave){
             *DRAW_COLORS = 0x4320;
             blit(chave, 124, 122, 9, 10, BLIT_2BPP);
@@ -670,12 +675,7 @@ void update() {
         }
         rect(144, portao, 1, 10);
 
-        *DRAW_COLORS = 2;
-        if ((frame / 25) % 2 == 0){
-            text(">", 151 , 150);
-        } else {
-            text(">", 153, 150);
-        }
+        draw_chave();
 
         if (!temChave){
             *DRAW_COLORS = 0x4320;
@@ -725,12 +725,7 @@ void update() {
         }
         rect(148, 146, (uint32_t)portao, 1);
 
-        *DRAW_COLORS = 2;
-        if ((frame / 25) % 2 == 0){
-            text(">", 151 , 150);
-        } else {
-            text(">", 153, 150);
-        }
+        draw_chave();
 
         if (!temChave){
             *DRAW_COLORS = 0x4320;
